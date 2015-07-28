@@ -27,3 +27,6 @@ then
 		MESSAGE="Movement in room detected"
 		echo "$MESSAGE" | mutt -s "MOVEMENT DETECTED @ $DATE" -a test-$DATE.jpeg -- $EMAIL
 fi
+
+#Upload to AWS ec2
+rsync -azvv --chmod=u+rwx,g+rwx,o+rwx -e "ssh -i AWSKey.pem" ./test-$DATE.jpeg ec2-user@ec2-##-##-###-##.us-west-2.compute.amazonaws.com:/var/www/html/webcamlog/
